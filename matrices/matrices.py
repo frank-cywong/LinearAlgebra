@@ -56,6 +56,14 @@ def addMult(A, i, j, s):
     for k in range(len(A[i])):
         A[i][k] += s * A[j][k]
 
+def setVal(A, i, j, s):
+    i = integerCheck(i)
+    j = integerCheck(j)
+    s = floatCheck(s)
+    if(i >= len(A) or j >= len(A[i])):
+        raise ValueError("Row or column number too large")
+    A[i][j] = s
+
 def print_row(A, r):
     r = integerCheck(r)
     if(r >= len(A)):
@@ -91,6 +99,7 @@ def print_help():
     print("- p to print the current matrix")
     print("- pr [row] to print a row")
     #print("- pc [row] to print a column")
+    print("- s [row] [col] [val] to set a value")
     print("- add [row1] [row2] [scalar] to add scalar * row2 to row1")
     print("- scale [row] [scalar] to scale row by scalar")
     print("- swap [row1] [row2] to swap row 1 and row 2")
@@ -120,6 +129,8 @@ while(True):
             print(tabulate(N))
         elif(instr == 'pr'):
             print_row(N, args[0])
+        elif(instr == 's'):
+            setVal(N, args[0], args[1], args[2])
         elif(instr == 'add'):
             addMult(N, args[0], args[1], args[2])
         elif(instr == 'scale'):
