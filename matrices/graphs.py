@@ -62,3 +62,50 @@ A = GtoM(G);
 
 print("Rebuilt incidence matrix from graph:");
 print(tabulate(A));
+
+print("DFS-based edge removal MST algorithm:");
+
+nc = len(A[0]);
+
+adjlist = [];
+
+for i in range(nc):
+    adjlist.append([]);
+
+for i in range(len(A)):
+    row = A[i];
+    rs = row.index(1);
+    rd = row.index(-1);
+    adjlist[rs].append([rd, i]);
+    adjlist[rd].append([rs, i]);
+    #print(adjlist);
+
+#print(adjlist);
+
+visited = [False] * nc;
+
+Q = [[0, -1]]; # jerry-rigged queue, also stores element of "edge" that led to this
+
+A2 = [];
+
+while(len(Q) != 0):
+     curNode = Q.pop();
+     inEdgeNum = curNode[1];
+     curNode = curNode[0]; # types dont exist here
+     if(visited[curNode]):
+        continue;
+     if(inEdgeNum != -1):
+        A2.append(A[inEdgeNum]);
+     visited[curNode] = True;
+     for node in adjlist[curNode]:
+         #print(node);
+         if not visited[node[0]]:
+            Q.append(node);
+
+print("New incidence matrix:")
+print(tabulate(A2));
+
+G2 = MtoG(A2);
+plt.clf();
+nx.draw(G2, with_labels = True, node_color="lightblue");
+plt.show();
