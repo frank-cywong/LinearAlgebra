@@ -28,20 +28,20 @@ M = [[1,-1,0,0,0],[1,0,-1,0,0],[1,0,0,-1,0],[0,1,-1,0,0],[0,1,0,-1,0], [0,1,0,0,
 #print(e)
 
 def MtoG(A):
-    G = nx.Graph();
-
-    for row in M:
+    tG = nx.Graph();
+    tG.clear();
+    for row in A:
         rs = row.index(1);
         rd = row.index(-1);
         #print(rs);
         #print(rd);
-        G.add_edge(rs,rd);
-    return G;
+        tG.add_edge(rs,rd);
+    return tG;
 
-def GtoM(G):
+def GtoM(tG):
     A = [];
-    nc = len(G.nodes());
-    for e in G.edges():
+    nc = len(tG.nodes());
+    for e in tG.edges():
         temp = [0] * nc; # ahhhh python syntax
         temp[e[0]] = 1;
         temp[e[1]] = -1;
@@ -106,6 +106,8 @@ print("New incidence matrix:")
 print(tabulate(A2));
 
 G2 = MtoG(A2);
+#for e in G2.edges():
+#    print(e);
 plt.clf();
 nx.draw(G2, with_labels = True, node_color="lightblue");
 plt.show();
