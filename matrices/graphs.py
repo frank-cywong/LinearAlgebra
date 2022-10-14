@@ -93,7 +93,7 @@ G = MtoG(M);
 # NetworkX's draw function, which requires matplotlib.pyplot
 nx.draw(G, with_labels = True, node_color="lightblue")
 
-print("Close matplotlib to continue:");
+print("Close matplotlib to continue");
 
 # Need to tell pyplot to show the plot
 plt.show()
@@ -115,11 +115,11 @@ G2 = MtoG(A2);
 #    print(e);
 plt.clf();
 nx.draw(G2, with_labels = True, node_color="lightblue");
-print("Close matplotlib to continue:");
+print("Close matplotlib to continue");
 plt.show();
 
 print("Dodecahedral graph:");
-print("Close matplotlib to continue:");
+print("Close matplotlib to continue");
 G3 = nx.dodecahedral_graph()
 plt.clf();
 nx.draw(G3, with_labels = True, node_color="lightblue");
@@ -130,4 +130,18 @@ G4 = MtoG(ST(GtoM(G3)));
 print("Tree of dodecahedral graph:");
 plt.clf();
 nx.draw(G4, with_labels = True, node_color="lightblue");
+plt.show();
+
+J = nx.gnp_random_graph(10,3)
+print("Random graph:");
+print("Close matplotlib to continue");
+plt.clf();
+nx.draw(J, with_labels = True, node_color="lightblue");
+plt.show();
+
+J2 = MtoG(ST(GtoM(J)));
+
+print("Tree of random graph:");
+plt.clf();
+nx.draw(J2, with_labels = True, node_color="lightblue");
 plt.show();
