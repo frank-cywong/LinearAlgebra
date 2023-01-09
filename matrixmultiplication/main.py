@@ -140,3 +140,35 @@ print(tabulate(N3));
 
 print("Quick computation of 1,2-th entry (0-indexed) of N^3:")
 print(matrix_cube_entry(N, 1, 2));
+
+# Challenge 5++
+# Binary matrix exponentiation
+def ident(n): # gives n x n identity matrix
+    M = [];
+    for i in range(n):
+        M.append([]);
+        for j in range(n):
+            M[i].append(1 if i == j else 0);
+    return M;
+
+def matrix_exp(A, n):
+    M = ident(len(A));
+    B = A;
+    while(n > 0):
+        if(n % 2 == 1):
+            M = matrix_product(M, B);
+        B = matrix_product(B, B);
+        n //= 2;
+    return M;
+
+print("3x3 identity matrix:")
+print(tabulate(ident(3)))
+
+print("N^0 with matrix_exp:")
+print(tabulate(matrix_exp(N, 0)))
+print("N^1 with matrix_exp:")
+print(tabulate(matrix_exp(N, 1)))
+print("N^2 with matrix_exp:")
+print(tabulate(matrix_exp(N, 2)))
+print("N^3 with matrix_exp:")
+print(tabulate(matrix_exp(N, 3)))
