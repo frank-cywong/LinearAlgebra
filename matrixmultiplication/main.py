@@ -29,9 +29,10 @@ for i in range(len(N)):
   for j in range(len (N[i])):
     N[i][j]=float(N[i][j])
     
-
+print("Matrix M:")
 print(tabulate(M))
 print("\n")
+print("Matrix N:")
 print(tabulate(N))
 print("\n")
 
@@ -42,8 +43,8 @@ print("\n")
 
 # Returns the dimensions of matrix A as a tuple (number of rows, number of columns)
 def matrix_dimensions(A):
-  num_rows = 0
-  num_cols = 0
+  num_rows = len(A)
+  num_cols = len(A[0])
   return((num_rows,num_cols))
 
 
@@ -52,7 +53,7 @@ def matrix_dimensions(A):
 
 # Returns True or False
 def can_multiply_matrices(A,B):
-  if (0==0):
+  if (len(A[0])==len(B)):
     return True
   else:
     return False
@@ -65,7 +66,12 @@ def can_multiply_matrices(A,B):
 def matrix_product_entry(A,B,i,j):
 
   # Should probably check first to see if the matrices can be multiplied!
-  return 0
+    o = 0.0;
+    if(not can_multiply_matrices(A,B)):
+        raise Exception("Cannot multiply matrices of these dimensions")
+    for k in range(len(B)): # for (int k = 0; k < len(B); ++k)
+        o += A[i][k] * B[k][j];
+    return o;
 
 
 # Challenge 4
@@ -75,13 +81,20 @@ def matrix_product_entry(A,B,i,j):
 
 def matrix_product(A,B):
 
-  # Should probably check first to see if the matrices can be multiplied!
+    # Should probably check first to see if the matrices can be multiplied!
 
-  # Initialize a new empty list for your row lists 
-  P = []
-  # Use matrix_product_entry!
+    # Initialize a new empty list for your row lists 
+    P = []
+    # Use matrix_product_entry!
 
-  return P
+    if(not can_multiply_matrices(A,B)):
+        raise Exception("Cannot multiply matrices of these dimensions")
+    for i in range(len(A)):
+        P.append([]);
+        for j in range(len(B[0])):
+            P[i].append(matrix_product_entry(A,B,i,j));
+
+    return P
 
 # Challenge 5
 # Write a function that transposes a matrix
@@ -91,3 +104,8 @@ def matrix_transpose(A):
   M = []
   return M
 
+
+print("Matrix NM:")
+O = matrix_product(N,M);
+print(tabulate(O));
+print("\n");
