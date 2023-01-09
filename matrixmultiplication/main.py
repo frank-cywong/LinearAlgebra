@@ -7,6 +7,8 @@ import csv
 # Makes presenting a table of data easier
 from tabulate import tabulate
 
+import math
+
 # The matrix M is encoded as a list of lists
 # Recall that the nested lists serve as the rows of the matrix
 
@@ -172,3 +174,20 @@ print("N^2 with matrix_exp:")
 print(tabulate(matrix_exp(N, 2)))
 print("N^3 with matrix_exp:")
 print(tabulate(matrix_exp(N, 3)))
+
+def rot_matrix(theta): # theta in radians
+    M = [[0, 0], [0, 0]];
+    M[0][0] = math.cos(theta);
+    M[0][1] = -math.sin(theta);
+    M[1][0] = -M[0][1];
+    M[1][1] = M[0][0];
+    return M;
+
+print("2x2 rotation matrix by 45 degrees:");
+RM = rot_matrix(math.pi / 4.0);
+print(tabulate(RM))
+
+print("4-th power of 45 deg rotation matrix:");
+print(matrix_exp(RM, 4));
+print("8-th power of 45 deg rotation matrix:");
+print(matrix_exp(RM, 8));
