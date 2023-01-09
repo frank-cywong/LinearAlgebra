@@ -102,10 +102,18 @@ def matrix_product(A,B):
 def matrix_transpose(A):
   
   M = []
+  for i in range(len(A[0])):
+    M.append([]);
+    for j in range(len(A)):
+        M[i].append(A[j][i]);
   return M
 
 
 print("Matrix NM:")
 O = matrix_product(N,M);
 print(tabulate(O));
+print("\n");
+
+print("Matrix Mt:")
+print(tabulate(matrix_transpose(M)));
 print("\n");
