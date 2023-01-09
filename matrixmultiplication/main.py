@@ -108,6 +108,18 @@ def matrix_transpose(A):
         M[i].append(A[j][i]);
   return M
 
+# Challenge 5+
+# Find ij-th entry of A^3 without computing all of A^3
+# Step 1: Find i-th row of A^2
+# Step 2: Mult to get ij-th entry of A^3
+def matrix_cube_entry(A,i,j):
+    A2 = [];
+    for k in range(len(A)):
+        # find ik-th entry of A^2
+        A2.append(matrix_product_entry(A,A,i,k))
+    #ij-th entry of A^3 = ij-th entry of A^2*A = 0-j-th entry of (i-th row of A^2 * A)
+    return (matrix_product_entry([A2], A, 0, j));
+
 
 print("Matrix NM:")
 O = matrix_product(N,M);
@@ -117,3 +129,14 @@ print("\n");
 print("Matrix Mt:")
 print(tabulate(matrix_transpose(M)));
 print("\n");
+
+print("Matrix N^2:")
+N2 = matrix_product(N,N);
+print(tabulate(N2));
+
+print("Matrix N^3:")
+N3 = matrix_product(N2, N);
+print(tabulate(N3));
+
+print("Quick computation of 1,2-th entry (0-indexed) of N^3:")
+print(matrix_cube_entry(N, 1, 2));
