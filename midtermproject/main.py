@@ -49,6 +49,23 @@ def print_help():
     print("resetgraph: Resets the current graph to the default graph.")
     print("")
 
+# Steps through 1 step of the DFS process
+# node_stack is an array that is used as a stack, stores nodes to visit
+# visited_arr is an array that tracks if node x was visited
+# graph is the graph to modify
+def dfs_step(node_stack, visited_arr, graph):
+    # Sanity check
+    if(len(node_stack) == 0):
+        return;
+    # Most recently added node is the one we look at
+    node_to_remove = node_stack.pop();
+    # Check if we've visited this node already
+    if(visited_arr[node_to_remove]):
+        return;
+    # Iterate over all this node's neighbours and add them if they haven't been visited yet
+    for adj_neighbour in graph.neighbours(node_to_remove):
+        node_stack.push(adj_neighbour)
+
 # Main function
 def main():
     # print help message on first execution
