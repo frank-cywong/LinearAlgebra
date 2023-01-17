@@ -96,6 +96,7 @@ def main():
                 # if int() fails, arguments isn't an integer, show user an error
                 except ValueError:
                     print("Edge indices must be an integer!")
+                # nx.networkXError is thrown when remove_edge can't find an edge to remove, in which case display this error
                 except nx.NetworkXError:
                     print("No edge found between nodes {} and {} to remove!".format(int(args[0]), int(args[1])));
             print("")
