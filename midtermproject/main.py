@@ -47,24 +47,83 @@ def print_help():
     print("addedge [node_a] [node_b]: (example: addedge 1 2) Adds a (directed) edge from node_a to node_b (Note that nodes are 0-indexed).")
     print("deledge [node_a] [node_b]: (example: deledge 1 2) Deletes a (directed) edge (if it exists) from node_a to node_b (Note that nodes are 0-indexed).")
     print("resetgraph: Resets the current graph to the default graph.")
-    print("")
+    print("startdfs: Start DFS visualization")
+
+
+# Start DFS process
+def dfs_start(graph):
+    # initialize node stack with starting (root) node (id: 0)
+    node_stack = [];
+    node_stack.append(0);
+    visited_arr = [];
+    # initialize visited array to all false
+    for i in range(len(graph)):
+        visited_arr.append(False);
+    dfs_wrapper(node_stack, visited_arr, graph);
+
+
+def dfs_wrapper(node_stack, visited_arr, graph):
+    # generate a graph layout
+    layout = nx.spring_layout(graph);
+    # do DFS until end
+    while(dfs_step_with_draw(node_stack, visited_arr, graph, layout)):
+        pass;
+
+# returns True if continue, False if end
+def dfs_step_with_draw(node_stack, visited_arr, graph, pos):
+    node_removed = dfs_step(node_stack, visited_arr, graph)
+    # if no more nodes left to visit, end
+    if(node_removed == None):
+        return False
+    node_count = len(graph)
+    not_visited_stack = []
+    visited_stack = []
+    for i in range(node_count):
+        if(i == node_removed):
+            continue;
+        # if i is visited, put it in a stack (needed for drawing the graph)
+        if(visited_arr[i]):
+            visited_stack.append(i);
+        # if i is neither visited or the node just visited, put it in the not visited stack
+        else:
+            not_visited_stack.append(i)
+    plt.clf();
+    nx.draw_networkx_edges(graph, pos, width=1.0);
+    # draw current node
+    nx.draw_networkx_nodes(graph, pos, nodelist=[node_removed], node_color="tab:red");
+    # draw not visited nodes
+    nx.draw_networkx_nodes(graph, pos, nodelist=not_visited_stack, node_color="tab:blue");
+    # draw visited nodes
+    nx.draw_networkx_nodes(graph, pos, nodelist=visited_stack, node_color="tab:green");
+    plt.show();
+    return True
 
 # Steps through 1 step of the DFS process
 # node_stack is an array that is used as a stack, stores nodes to visit
 # visited_arr is an array that tracks if node x was visited
 # graph is the graph to modify
+# Returns the current node for the purpose of graphing it
 def dfs_step(node_stack, visited_arr, graph):
-    # Sanity check
-    if(len(node_stack) == 0):
-        return;
-    # Most recently added node is the one we look at
-    node_to_remove = node_stack.pop();
-    # Check if we've visited this node already
-    if(visited_arr[node_to_remove]):
-        return;
+    # loop infinitely until we find a working node to test (or run out of nodes to test)
+    while True:
+        # Are there even any nodes left?
+        if(len(node_stack) == 0):
+            return None;
+        # Most recently added node is the one we look at
+        node_to_remove = node_stack.pop();
+        # Check if we've visited this node already
+        if(not visited_arr[node_to_remove]):
+            break;
+
+    # set current node to visited
+    visited_arr[node_to_remove] = True;
+
     # Iterate over all this node's neighbours and add them if they haven't been visited yet
-    for adj_neighbour in graph.neighbours(node_to_remove):
-        node_stack.push(adj_neighbour)
+    for adj_neighbour in graph.neighbors(node_to_remove):
+        if(not visited_arr[adj_neighbour]):
+            node_stack.append(adj_neighbour)
+
+    return node_to_remove;
 
 # Main function
 def main():
@@ -119,6 +178,11 @@ def main():
             print("")
         elif(cmd == "exit"):
             print("Exiting program!");
+            break;
+        elif(cmd == "startdfs"):
+            print("Starting DFS visualization:");
+            dfs_start(current_graph);
+            print("");
             break;
         else:
             print("Command not recognized!");
