@@ -3,7 +3,7 @@ import networkx as nx
 
 # A default / sample graph in adjacency matrix form
 # A[i, j] is 1 if there is an edge connecting i to j
-DEFAULT_GRAPH_ADJ = [[0, 1, 1, 0, 0, 1, 0], [1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 1, 1], [0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 1, 0, 0, 1], [1, 0, 1, 0, 0, 0, 0], [0, 0, 1, 0, 1, 0, 0]];
+DEFAULT_GRAPH_ADJ = [[0, 1, 1, 0, 0, 1, 0], [1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 1, 1], [0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1], [1, 0, 1, 0, 0, 0, 0], [0, 0, 1, 0, 1, 0, 0]];
 
 # Checks if matrix is square
 def is_square(matrix):
@@ -48,6 +48,7 @@ def print_help():
     print("deledge [node_a] [node_b]: (example: deledge 1 2) Deletes a (directed) edge (if it exists) from node_a to node_b (Note that nodes are 0-indexed).")
     print("resetgraph: Resets the current graph to the default graph.")
     print("startdfs: Start DFS visualization")
+    print("")
 
 
 # Start DFS process
@@ -89,6 +90,7 @@ def dfs_step_with_draw(node_stack, visited_arr, graph, pos):
             not_visited_stack.append(i)
     plt.clf();
     nx.draw_networkx_edges(graph, pos, width=1.0);
+    nx.draw_networkx_labels(graph, pos);
     # draw current node
     nx.draw_networkx_nodes(graph, pos, nodelist=[node_removed], node_color="tab:red");
     # draw not visited nodes
@@ -182,11 +184,10 @@ def main():
         elif(cmd == "startdfs"):
             print("Starting DFS visualization:");
             dfs_start(current_graph);
+            print("DFS visualization complete!");
             print("");
-            break;
         else:
             print("Command not recognized!");
-            break;
 
 # Boilerplate to make Python behave more like C or Java by making it have a main function
 if __name__ == "__main__":
