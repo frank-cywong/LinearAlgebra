@@ -132,9 +132,11 @@ def import_graph():
     print("Input number of nodes (ie. size of adjacency matrix):")
     matrix_storage = []
     node_count = int(input());
+    print("Input adjacency matrix, all elements should be 0 or 1 with spaces between elements, and a newline per row.")
+    print("Note that the 1st (0th) node will be the start node for the depth first search.")
     # Iterate through every row
     for i in range(node_count):
-        row_string = input("Input row " + i + ": ");
+        row_string = input();
         row_arr = row_string.split(" ");
         row_int_arr = [];
         if(len(row_arr) != node_count):
@@ -151,7 +153,12 @@ def import_graph():
             except:
                 print("Error: Each element in adjacency matrix must be 0 or 1!");
                 return None;
-    
+        matrix_storage.append(row_int_arr)
+    try:
+        G = load_graph_from_adj_matrix(matrix_storage)
+        return G
+    except:
+        return None
     
 
 # Main function
@@ -210,6 +217,9 @@ def main():
             break;
         elif(cmd == "startdfs"):
             print("Starting DFS visualization:");
+            print("Blue -> Unvisited nodes");
+            print("Red -> Current node");
+            print("Green -> Visited nodes");
             dfs_start(current_graph);
             print("DFS visualization complete!");
             print("");
@@ -221,6 +231,7 @@ def main():
             print("")
         else:
             print("Command not recognized!");
+            print("");
 
 # Boilerplate to make Python behave more like C or Java by making it have a main function
 if __name__ == "__main__":
