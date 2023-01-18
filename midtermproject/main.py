@@ -127,6 +127,33 @@ def dfs_step(node_stack, visited_arr, graph):
 
     return node_to_remove;
 
+# Imports a graph from a user-input adjacency matrix
+def import_graph():
+    print("Input number of nodes (ie. size of adjacency matrix):")
+    matrix_storage = []
+    node_count = int(input());
+    # Iterate through every row
+    for i in range(node_count):
+        row_string = input("Input row " + i + ": ");
+        row_arr = row_string.split(" ");
+        row_int_arr = [];
+        if(len(row_arr) != node_count):
+            print("Error: Input must be square, number of elements in row does not match node count!");
+            return None
+        # Convert value for each element in each row to number, must be 0 or 1
+        for j in range(node_count):
+            try:
+                cur_val = int(row_arr[j]);
+                if(cur_val != 0 and cur_val != 1):
+                    print("Error: Each element in adjacency matrix must be 0 or 1!");
+                    return None;
+                row_int_arr.append(cur_val)
+            except:
+                print("Error: Each element in adjacency matrix must be 0 or 1!");
+                return None;
+    
+    
+
 # Main function
 def main():
     # print help message on first execution
@@ -186,6 +213,12 @@ def main():
             dfs_start(current_graph);
             print("DFS visualization complete!");
             print("");
+        elif(cmd == "importgraph"):
+            potential_new_graph = import_graph();
+            if(potential_new_graph != None):
+                print("Graph imported!");
+                current_graph = potential_new_graph
+            print("")
         else:
             print("Command not recognized!");
 
