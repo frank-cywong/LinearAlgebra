@@ -174,6 +174,7 @@ def print_graph(graph):
             else:
                 currow.append(0);
         matrix.append(currow);
+    # Step 2: Print the resulting adjacency matrix
     print(tabulate(matrix));
 
 # Main function
