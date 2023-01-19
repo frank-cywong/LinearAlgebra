@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import networkx as nx
+from tabulate import tabulate
 
 # A default / sample graph in adjacency matrix form
 # A[i, j] is 1 if there is an edge connecting i to j
@@ -42,7 +43,7 @@ def print_help():
     print("exit: Terminates this program.")
     print("help: Prints this help message.")
     print("importgraph: Allows you to input a graph via a adjacency matrix.")
-    #print("printgraph: Prints the current graph in the form of an adjacency matrix.") - not needed, use showgraph instead
+    print("printgraph: Prints the current graph in the form of an adjacency matrix.")
     print("showgraph: Displays the current graph with Matplotlib.")
     print("addedge [node_a] [node_b]: (example: addedge 1 2) Adds a (directed) edge from node_a to node_b (Note that nodes are 0-indexed).")
     print("deledge [node_a] [node_b]: (example: deledge 1 2) Deletes a (directed) edge (if it exists) from node_a to node_b (Note that nodes are 0-indexed).")
@@ -159,7 +160,21 @@ def import_graph():
         return G
     except:
         return None
-    
+
+# Prints a graph as an adjacency matrix
+def print_graph(graph):
+    # Step 1: Convert graph to adjacency matrix
+    matrix = [];
+    for i in range(len(graph)):
+        adj_nodes = graph[i];
+        currow = [];
+        for j in range(len(graph)):
+            if(j in adj_nodes):
+                currow.append(1);
+            else:
+                currow.append(0);
+        matrix.append(currow);
+    print(tabulate(matrix));
 
 # Main function
 def main():
@@ -228,6 +243,9 @@ def main():
             if(potential_new_graph != None):
                 print("Graph imported!");
                 current_graph = potential_new_graph
+            print("")
+        elif(cmd == "printgraph"):
+            print_graph(current_graph);
             print("")
         else:
             print("Command not recognized!");
