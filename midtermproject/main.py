@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 from tabulate import tabulate
+import time
 
 # A default / sample graph in adjacency matrix form
 # A[i, j] is 1 if there is an edge connecting i to j
@@ -31,7 +32,6 @@ def load_graph_from_adj_matrix(adj_matrix):
             if(cur_row[end_node] == 1):
                 output_graph.add_edge(start_node, end_node)
     return output_graph
-
 
 # Loads default graph from an adjacently matrix
 def load_default_graph():
@@ -70,6 +70,8 @@ def dfs_wrapper(node_stack, visited_arr, graph):
     # do DFS until end
     while(dfs_step_with_draw(node_stack, visited_arr, graph, layout)):
         pass;
+    # close plot
+    plt.close();
 
 # returns True if continue, False if end
 def dfs_step_with_draw(node_stack, visited_arr, graph, pos):
@@ -98,7 +100,10 @@ def dfs_step_with_draw(node_stack, visited_arr, graph, pos):
     nx.draw_networkx_nodes(graph, pos, nodelist=not_visited_stack, node_color="tab:blue");
     # draw visited nodes
     nx.draw_networkx_nodes(graph, pos, nodelist=visited_stack, node_color="tab:green");
-    plt.show();
+    plt.pause(0.1);
+    plt.show(block = False);
+    time.sleep(1);
+    plt.pause(0.1);
     return True
 
 # Steps through 1 step of the DFS process
@@ -201,7 +206,12 @@ def main():
         elif(cmd == "showgraph"):
             plt.clf();
             nx.draw(current_graph, with_labels = True);
-            plt.show();
+            print("Graph shown, will auto-close in 5 seconds");
+            plt.pause(0.1);
+            plt.show(block = False);
+            plt.pause(0.1);
+            time.sleep(5);
+            plt.close();
             print("")
         elif(cmd == "addedge"):
             if(len(args) < 2):
