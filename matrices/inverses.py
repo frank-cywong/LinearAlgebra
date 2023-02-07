@@ -18,8 +18,8 @@ n = np.shape(M)[0]
 
 # Invert M
 
-# Why bother doing this? - If A is singular then otherwise N does not exist?
-# N = np.eye(n)
+# Why bother doing this? - If A is singular then N does not exist
+N = np.eye(n)
 
 try:
   N = np.linalg.inv(M)
