@@ -32,7 +32,21 @@ def gen_elementary_matrix():
         A[arg2-1][arg1-1] = 1
         return A
     elif (op == "scale"):
-        pass
+        argstr = input("Input row to scale: ");
+        try:
+            arg1 = int(argstr)
+        except:
+            print("Error! arg1 [row] {} is not a number!".format(argli[0]));
+        argstr = input("Input scalar to scale by: ");
+        try:
+            arg2 = int(argstr)
+        except:
+            print("Error! arg2 [scalar] {} is not a number!".format(argli[1]));
+        if(arg1 > size or arg1 <= 0):
+            print("Error! arg1 {} (row number) is out of bounds! Size is {} and values are 1-indexed.".foramt(arg1, size));
+            return
+        A[arg1-1][arg1-1] = arg2;
+        return A
     elif (op == "add"):
         pass
     else:
