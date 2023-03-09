@@ -1,4 +1,5 @@
-from rref import rowReduce
+from rref import rowReduce # Custom RREF from previous work
+from math import sqrt # Python STL 
 
 EPSILON = 1.0e-9
 
@@ -11,6 +12,12 @@ def matrixCopy(m):
         o.append(r);
     return o;
 
+def vectorCopy(v):
+    o = [];
+    for i in v:
+        o.append(i);
+    return o;
+
 def norm(v):
     counter = 0.0;
     for x in v:
@@ -20,7 +27,7 @@ def norm(v):
 def normalize(v):
     n = norm(v);
     for i in range(len(v)):
-        v[i] /= norm;
+        v[i] /= n;
 
 def printVector(v):
     print("[", end="");
@@ -55,9 +62,45 @@ def basisCheck(b):
     printBasis(m);
     return False;
 
+# Adds v to u, modifies u
+def vectorAdd(u, v):
+    #print("ADD");
+    #printVector(u);
+    #printVector(v);
+    if(len(u) != len(v)):
+        print("Error! Trying to add vector u with size {} and vector v with size {}!".format(len(u), len(v)));
+        return;
+    for i in range(len(u)):
+        u[i] += v[i];
+
+# Scales u by m, modifies u
+def vectorScale(m, u):
+    for i in range(len(u)):
+        u[i] *= m;
+
+def dotProduct(u, v):
+    if(len(u) != len(v)):
+        print("Error! Trying to add vector u with size {} and vector v with size {}!".format(len(u), len(v)));
+        return;
+    s = 0;
+    for i in range(len(u)):
+        s += (u[i] * v[i]);
+    return s;
+
 def gramSchmidt(b):
     if not basisCheck(b):
         return None;
+    n = [];
+    for v in b:
+        #printBasis(n);
+        u = vectorCopy(v);
+        for ev in n:
+            t = vectorCopy(ev);
+            vectorScale(-dotProduct(u, ev), t);
+            vectorAdd(u, t);
+        normalize(u);
+        n.append(u);
+    return n;
 
 def printHelp():
     print("Commands:");
@@ -71,10 +114,10 @@ def printHelp():
 def addVect(b):
     sanityCheck = (False if len(b) == 0 else True);
     print("NOTE: Input vectors with brackets, eg. 3 -1 4.1");
-    print("Input vector ", end="");
+    print("Input vector", end="");
     if(sanityCheck):
-        print("of size", len(b[0]), end="");
-    print("to add to basis:");
+        print(" of size", len(b[0]), end="");
+    print(" to add to basis:");
     vin = input();
     varr = vin.split(" ");
     darr = [];
@@ -107,8 +150,9 @@ def main():
         elif(cmd == "gram-schmidt"):
             gb = gramSchmidt(basis);
             if gb is not None:
-                print("Orthonormal basis:");
+                print("Orthonormal basis found:");
                 printBasis(gb);
+                print("\n");
         elif(cmd == "exit"):
             break;
         else:
