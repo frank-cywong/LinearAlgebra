@@ -54,7 +54,7 @@ xx = np.outer(np.linspace(-40, 40, 40), np.ones(40));
 yy = xx.copy().T;
 zz = xx * xvect[0] + yy * xvect[1] + xvect[2];
 
-ax.plot_surface(xx, yy, zz, rstride = 39, cstride = 39);
+ax.plot_surface(xx, yy, zz, alpha=0.5, color='#0000FF', rstride = 39, cstride = 39);
 
 # Create the 3D plot
 ax.scatter3D(xdata,ydata,zdata, c=zdata, cmap = 'Greens')
