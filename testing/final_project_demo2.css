@@ -1,0 +1,11 @@
+table, th, td {
+  border: 1px solid;
+}
+table{
+	border-collapse: collapse;
+}
+#canvas-container{
+	margin: auto;
+	width: 100%;
+	text-align: center;
+}

@@ -1,0 +1,1 @@
+curl -d "@data.json" -H "Cookie: connect.sid=s:KqIVag79M9pP_YorGpaGZp0CDwlwzUtk.+LYw9H/dsha6M847IWbqis4Xz98iOLeIWTqKXDs2dSU" -H "Content-Type: application/json" --max-time 5 -X POST https://lamp.williamvongphanith.com/api/submit

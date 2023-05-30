@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Interactive Neural Network Demonstration</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script src="final_project_demo2.js"></script>
+<link rel="stylesheet" href="final_project_demo2.css">
+</head>
+<body>
+<noscript>JavaScript must be enabled to run this page.</noscript>
+<div id="canvas-container">
+<canvas id="neuralNetworkGraph" width="300" height="300">
+</div>
+</canvas>
+<p id="expression">$$\vec{v_1} = \begin{bmatrix}1\\0\end{bmatrix}, W_1 = \begin{bmatrix}0.5 && 0.5 \\ 0.5 && 0.5 \end{bmatrix}, \vec{b_1} = \begin{bmatrix}0\\0\end{bmatrix}, \vec{v_2} = W_1\vec{v_1}+\vec{b_1}$$</p>
+<p>$$\text{Activation Function: } f(x) = \begin{cases} x \text{ if } x \ge 0 \\ 0 \text { if } x \lt 0 \end{cases} \text{ , Output Function: } g(x) = \begin{cases} 1 \text{ if } x \ge 0.5 \\ 0 \text{ if } x \lt 0.5 \end{cases}$$</p>
+<p>Lorem ipsum dolor sit amet $$E(W_{1}, W_{2}, \cdots, W_{n}) \rightarrow \mathbb{R}$$ test</p>
+<table>
+<tr><td><label for="vinput">Adjust Input Vector:</label></td></tr>
+<tr><td><input id="vinput1" type="text" value="1" pattern="-?[0-9]+(\.[0-9]+)?" required></td></tr>
+<tr><td><input id="vinput2" type="text" value="0" pattern="-?[0-9]+(\.[0-9]+)?" required></td></tr>
+</table>
+
+<table>
+<tr><td colspan="2"><label for="w1">Adjust Weight Matrix 1:</label></td></tr>
+<tr><td><input id="w111" type="text" value="0.5" pattern="-?[0-9]+(\.[0-9]+)?" required></td><td><input id="w112" type="text" value="0.5" pattern="-?[0-9]+(\.[0-9]+)?" required></td></tr>
+<tr><td><input id="w121" type="text" value="0.5" pattern="-?[0-9]+(\.[0-9]+)?" required></td><td><input id="w122" type="text" value="0.5" pattern="-?[0-9]+(\.[0-9]+)?" required></td></tr>
+</table>
+
+<table>
+<tr><td><label for="b1">Adjust Bias Vector 1:</label></td></tr>
+<tr><td><input id="b11" type="text" value="0" pattern="-?[0-9]+(\.[0-9]+)?" required></td></tr>
+<tr><td><input id="b12" type="text" value="0" pattern="-?[0-9]+(\.[0-9]+)?" required></td></tr>
+</table>
+
+<table>
+<tr width="100%"><td colspan="2"><label for="w2">Adjust Weight Matrix 2:</label></td></tr>
+<tr><td><input id="w211" type="text" value="0.8" pattern="-?[0-9]+(\.[0-9]+)?" required></td><td><input id="w212" type="text" value="0.3" pattern="-?[0-9]+(\.[0-9]+)?" required></td></tr>
+</table>
+
+<table>
+<tr><td><label for="b2">Adjust Bias Vector 2:</label></td></tr>
+<tr><td><input id="b21" type="text" value="0.8" pattern="-?[0-9]+(\.[0-9]+)?" required></td></tr>
+</table>
+
+<button type="button" name="vinput" onClick="update()">Update Values</button>
+</body>
+</html>
