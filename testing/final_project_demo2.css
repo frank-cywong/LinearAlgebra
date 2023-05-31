@@ -3,9 +3,21 @@ table, th, td {
 }
 table{
 	border-collapse: collapse;
+	margin-bottom: 5px;
 }
 #canvas-container{
 	margin: auto;
 	width: 100%;
 	text-align: center;
+}
+body{
+	font-family: "Roboto", "Arial", sans-serif;
+	font-size: 14px;
+}
+td{
+	min-width: 50px;
+	text-align: center;
+}
+#pad{
+	margin-bottom: 15px;
 }
